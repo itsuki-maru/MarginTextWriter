@@ -1,0 +1,12 @@
+#draggable {
+    background-color: transparent;
+    font-size: 14px;
+}
+
+@media print {
+    #draggable {
+        border: none;
+        background-color: transparent;
+        resize: none;
+    }
+}
