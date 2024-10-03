@@ -18,3 +18,4 @@
 | ---- | ---- |
 | 文字を拡大 | Ctrl + Shift + B |
 | 文字を縮小 | Ctrl + Shift + S |
+| 下線の切り替え | Ctrl + Shift + U |

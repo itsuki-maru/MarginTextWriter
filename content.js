@@ -6,6 +6,7 @@ let isRendered = false;
 let isDragging = false;
 let offsetX, offsetY;
 let defaultFonxSize = 14;
+let isUnderLineDraw = true;
 
 const textbox = document.createElement("div");
 
@@ -25,6 +26,7 @@ function initTextBox () {
     textbox.contentEditable = "true";
     textbox.style.position = "absolute";
     textbox.style.textDecoration = "underline";
+    textbox.style.textUnderlineOffset = "5px";
     textbox.style.width = "450px";
     textbox.style.height = "auto";
     textbox.style.border = "none";
@@ -84,6 +86,11 @@ textbox.addEventListener("keydown", function (event) {
             fontSizeDown();
             return;
         }
+        if (event.ctrlKey && event.shiftKey && event.key === "U") {
+            event.preventDefault();
+            switchUnderLine();
+            return;
+        }
     }
 })
 
@@ -95,4 +102,14 @@ function fontSizeUp () {
 function fontSizeDown () {
     defaultFonxSize -= 1;
     textbox.style.fontSize = `${defaultFonxSize}px`;
+};
+
+function switchUnderLine () {
+    if (isUnderLineDraw) {
+        textbox.style.textDecoration = "none";
+        isUnderLineDraw = false;
+    } else {
+        textbox.style.textDecoration = "underline";
+        isUnderLineDraw = true;
+    }
 };
