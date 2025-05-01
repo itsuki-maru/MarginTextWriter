@@ -74,6 +74,13 @@ function adjustHeight() {
     textbox.style.height = textbox.scrollHeight + "px";
 }
 
+// Bodyの高さを調整
+function adjustBodyHeight() {
+    const bodyElement = document.body;
+    bodyElement.style.height = "100vh";
+    console.info("Adjust Body Height.");
+}
+
 textbox.addEventListener("keydown", function (event) {
     if (document.activeElement === textbox) {
         if (event.ctrlKey && event.shiftKey && event.key === "B") {
@@ -89,6 +96,12 @@ textbox.addEventListener("keydown", function (event) {
         if (event.ctrlKey && event.shiftKey && event.key === "U") {
             event.preventDefault();
             switchUnderLine();
+            return;
+        }
+        if (event.ctrlKey && event.shiftKey && event.key === "A") {
+            event.preventDefault();
+            adjustBodyHeight();
+            window.alert("高さを調整しました。");
             return;
         }
     }
