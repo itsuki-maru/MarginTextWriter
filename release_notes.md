@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 1.0.4
+
+- README.md を更新
+- JavaScriptで実装したスタイル定義（ガイドラインの表示関連）を style.css に移動。
+
 ## Version 1.0.3
 
 - テキストボックスの削除機能を追加
