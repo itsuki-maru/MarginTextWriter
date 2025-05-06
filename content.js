@@ -84,17 +84,6 @@ function adjustPortlatePrintSize() {
     console.info("Adjust Body Height.");
     window.alert("画面を印刷サイズに調整しました。");
     callAdjustPrintPage = true;
-
-    // 印刷に反映しないborderをガイドラインとして設定
-    const style = document.createElement("style");
-    style.textContent = `
-        @media print {
-            body {
-                border: none !important;
-            }
-        }
-    `;
-    document.head.appendChild(style);
 }
 
 
