@@ -1,14 +1,16 @@
-console.info("content.js loaded");
+console.info("Margin Text Writer loaded.");
 
 
 let keysPressd = {};
 let isRendered = false;
 let isDragging = false;
+let callAdjustPrintPage = false;
 let offsetX, offsetY;
 let defaultFonxSize = 14;
 let isUnderLineDraw = true;
 
 const textbox = document.createElement("div");
+const bodyElement = document.body;
 
 document.addEventListener("keydown", function (event) {
     keysPressd[event.key] = true;
@@ -27,10 +29,10 @@ function initTextBox () {
     textbox.style.position = "absolute";
     textbox.style.textDecoration = "underline";
     textbox.style.textUnderlineOffset = "5px";
-    textbox.style.width = "450px";
+    textbox.style.width = "400px";
     textbox.style.height = "auto";
     textbox.style.border = "none";
-    textbox.style.right = "100px";
+    textbox.style.left = "50px";
     textbox.style.top = "20px";
     textbox.style.padding = "10px";
     textbox.style.zIndex = "999";
@@ -75,10 +77,30 @@ function adjustHeight() {
 }
 
 // Bodyの高さを調整
-function adjustBodyHeight() {
-    const bodyElement = document.body;
-    bodyElement.style.height = "100vh";
+function adjustPortlatePrintSize() {
+    if (callAdjustPrintPage) {
+        return;
+    }
+    bodyElement.style.height = "1123px";
+    bodyElement.style.width = "794px";
+    bodyElement.style.margin = "5px";
+    bodyElement.style.padding = "3px";
+    bodyElement.style.border = "1px solid";
+    removeTextbox();
+    initTextBox ();
     console.info("Adjust Body Height.");
+    window.alert("画面を印刷サイズに調整しました。");
+    callAdjustPrintPage = true;
+
+    const style = document.createElement("style");
+    style.textContent = `
+        @media print {
+            body {
+                border: none !important;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 textbox.addEventListener("keydown", function (event) {
@@ -100,8 +122,12 @@ textbox.addEventListener("keydown", function (event) {
         }
         if (event.ctrlKey && event.shiftKey && event.key === "A") {
             event.preventDefault();
-            adjustBodyHeight();
-            window.alert("高さを調整しました。");
+            adjustPortlatePrintSize();
+            return;
+        }
+        if (event.ctrlKey && event.shiftKey && event.key === "D") {
+            event.preventDefault();
+            removeTextbox();
             return;
         }
     }
@@ -126,3 +152,9 @@ function switchUnderLine () {
         isUnderLineDraw = true;
     }
 };
+
+function removeTextbox() {
+    const deleteTextbox = document.getElementById("draggable")
+    deleteTextbox.remove();
+    isRendered = false;
+}
