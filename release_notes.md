@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 1.0.5
+
+- テキストボックス表示時にフォーカス
+- `Ctrl + Shift + L` で枠線を表示
+
 ## Version 1.0.4
 
 - README.md を更新
