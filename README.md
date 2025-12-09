@@ -22,4 +22,5 @@
 | 文字を縮小             | Ctrl + Shift + S |
 | 下線の切り替え         | Ctrl + Shift + U |
 | 高さを調整             | Ctrl + Shift + A |
-| テキストボックスを削除 | Ctrl + Shift + A |
+| テキストボックスを削除 | Ctrl + Shift + D |
+| 枠線表示               | Ctrl + Shift + L |

@@ -8,6 +8,7 @@ let callAdjustPrintPage = false; // ページのアジャスト実行状態を�
 let offsetX, offsetY;  // テキストボックスの移動状況を保持
 let defaultFonxSize = 14; // フォントサイズ初期値
 let isUnderLineDraw = true; // 下線の有無
+let isBorder = false; // 外枠の有無
 
 const textbox = document.createElement("div");
 const bodyElement = document.body;
@@ -34,6 +35,7 @@ function initTextBox () {
     textbox.innerHTML = "ここにテキストを入力...";
     document.body.appendChild(textbox);
     adjustHeight();
+    textbox.focus();
     console.info("Textbox initialized.");
 }
 
@@ -113,6 +115,20 @@ function switchUnderLine () {
 };
 
 
+// 外枠の表示非表示切り替え
+function switchBorder () {
+    if (isBorder) {
+        textbox.style.border = "none";
+        window.alert("印刷時に枠線は非表示となります。");
+        isBorder = false;
+    } else {
+        textbox.style.border = "solid 1px";
+        window.alert("印刷時に枠線を表示します。");
+        isBorder = true;
+    }
+}
+
+
 // テキストボックスの除去
 function removeTextbox() {
     const deleteTextbox = document.getElementById("draggable")
@@ -184,6 +200,12 @@ textbox.addEventListener("keydown", function (event) {
         if (event.ctrlKey && event.shiftKey && event.key === "D") {
             event.preventDefault();
             removeTextbox();
+            return;
+        }
+        // 枠線の表示切り替え
+        if (event.ctrlKey && event.shiftKey && event.key === "L") {
+            event.preventDefault();
+            switchBorder();
             return;
         }
     }
