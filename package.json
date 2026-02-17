@@ -1,12 +1,25 @@
 {
-  "name": "margin_text",
+  "name": "margin-text-writer",
   "version": "1.0.5",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "prettier": "^3.8.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "eslint": "^9.37.0",
+    "eslint-plugin-vue": "~10.5.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vue-tsc": "^2.2.0"
+  }
 }

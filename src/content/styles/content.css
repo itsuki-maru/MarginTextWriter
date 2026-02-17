@@ -1,0 +1,122 @@
+/**
+ * 全スタイル定義
+ * Shadow DOM内に注入されるため、ホストページのスタイルとは分離される
+ * VueのSFC <style>ブロックはdocument.headに注入されShadow DOM内に届かないため、
+ * 全CSSをこのファイルに集約し、main.tsで?inlineインポートして<style>として注入する
+ */
+
+/* ============================================
+   TextBoxContainer - ドラッグ可能なラッパー
+   ============================================ */
+.textbox-container {
+  position: absolute;
+  left: 50px;
+  top: 20px;
+  z-index: 999;
+  width: 400px;
+  cursor: move;
+  font-family: sans-serif;
+}
+
+/* ============================================
+   ToolBar - 操作ボタン群
+   ============================================ */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  user-select: none;
+}
+
+.toolbar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  color: #333;
+}
+
+.toolbar button:hover {
+  background: #e0e0e0;
+  border-color: #bbb;
+}
+
+/* 下線ON・印刷枠線ONなどのアクティブ状態 */
+.toolbar button.active {
+  background: #d0d0ff;
+  border-color: #99f;
+}
+
+.toolbar button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* フォントサイズ表示ラベル */
+.toolbar .font-size-display {
+  font-size: 11px;
+  color: #555;
+  min-width: 32px;
+  text-align: center;
+}
+
+/* ============================================
+   EditableArea - テキスト編集エリア
+   ============================================ */
+.editable-area {
+  background-color: transparent;
+  width: 100%;
+  min-height: 20px;
+  height: auto;
+  padding: 10px;
+  overflow-y: hidden;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  /* 画面上は常に枠線を表示 */
+  border: solid 1px;
+}
+
+/* 空の状態でプレースホルダーを表示 */
+.editable-area:empty::before {
+  content: attr(data-placeholder);
+  color: #999;
+}
+
+/* ============================================
+   印刷用スタイル
+   ============================================ */
+@media print {
+  /* ツールバーは印刷に含めない */
+  .toolbar {
+    display: none !important;
+  }
+
+  /* 印刷調整で付与されたbodyの枠線を非表示 */
+  body {
+    border: none !important;
+  }
+
+  /* デフォルトでは印刷時に枠線を非表示 */
+  .editable-area {
+    border: none !important;
+    background-color: transparent;
+    resize: none;
+  }
+
+  /* ボタンで有効化された場合のみ印刷時も枠線を表示 */
+  .editable-area.print-border {
+    border: solid 1px !important;
+  }
+}
