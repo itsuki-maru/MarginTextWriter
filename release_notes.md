@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 2.0.1
+
+- テキストボックスの表示状態を拡張機能アイコンのクリックでトグル
+- 文字色の変更機能を追加
+
 ## Version 1.0.5
 
 - Vue3 + TypeScript の構成に変更
