@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 2.0.2
+
+- `"permissions": ["activeTab"],` は不要であったため、manifest.json から削除
+
 ## Version 2.0.1
 
 - テキストボックスの表示状態を拡張機能アイコンのクリックでトグル
