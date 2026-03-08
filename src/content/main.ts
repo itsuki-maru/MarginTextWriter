@@ -12,8 +12,31 @@ console.info('Margin Text Writer loaded.');
 
 /** キー入力の押下状態を保持 */
 const keysPressed: Record<string, boolean> = {};
-/** テキストボックスの表示状態 */
+/** テキストボックスがDOMにマウントされているか */
 let isRendered = false;
+/** テキストボックスが表示状態か */
+let isVisible = false;
+/** Shadow DOMのホスト要素 */
+let hostElement: HTMLElement | null = null;
+
+// 拡張機能アイコンのクリックでテキストボックスをトグル
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.type === 'toggle_textbox') {
+    if (!isRendered) {
+      mountTextBox();
+      isRendered = true;
+      isVisible = true;
+    } else if (isVisible) {
+      // 表示中 → 非表示（テキストはDOMに保持される）
+      if (hostElement) hostElement.style.display = 'none';
+      isVisible = false;
+    } else {
+      // 非表示中 → 再表示
+      if (hostElement) hostElement.style.display = '';
+      isVisible = true;
+    }
+  }
+});
 
 // M+Tキー同時押しでテキストボックスを表示
 document.addEventListener('keydown', (event: KeyboardEvent) => {
@@ -25,6 +48,7 @@ document.addEventListener('keydown', (event: KeyboardEvent) => {
       event.preventDefault();
       mountTextBox();
       isRendered = true;
+      isVisible = true;
     }
   }
 });
@@ -41,6 +65,7 @@ function mountTextBox(): void {
   // Shadow DOMのホスト要素を作成
   const host = document.createElement('div');
   document.body.appendChild(host);
+  hostElement = host;
 
   const shadowRoot = host.attachShadow({ mode: 'open' });
 
@@ -54,11 +79,13 @@ function mountTextBox(): void {
   shadowRoot.appendChild(mountPoint);
 
   const app = createApp(App, {
-    // テキストボックス破棄時のコールバック
+    // テキストボックス破棄時のコールバック（ユーザーが明示的に閉じた場合）
     destroyCallback: () => {
       app.unmount();
       host.remove();
       isRendered = false;
+      isVisible = false;
+      hostElement = null;
       keysPressed['m'] = false;
       keysPressed['t'] = false;
     },
