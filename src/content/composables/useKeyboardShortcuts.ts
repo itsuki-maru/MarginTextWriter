@@ -10,7 +10,7 @@
  *   A: 印刷調整
  *   D: テキストボックス削除
  */
-import { onMounted, onUnmounted, type Ref } from 'vue';
+import { onMounted, onUnmounted, type Ref } from "vue";
 
 interface ShortcutActions {
   fontSizeUp: () => void;
@@ -47,12 +47,12 @@ export function useKeyboardShortcuts(
 
   onMounted(() => {
     const el = containerRef.value;
-    if (el) el.addEventListener('keydown', onKeyDown);
+    if (el) el.addEventListener("keydown", onKeyDown);
   });
 
   // コンポーネント破棄時にリスナーを解除
   onUnmounted(() => {
     const el = containerRef.value;
-    if (el) el.removeEventListener('keydown', onKeyDown);
+    if (el) el.removeEventListener("keydown", onKeyDown);
   });
 }

@@ -3,7 +3,7 @@
   main.tsから受け取ったdestroyCallbackを子コンポーネントのイベントに接続する
 -->
 <script setup lang="ts">
-import TextBoxContainer from './components/TextBoxContainer.vue';
+import TextBoxContainer from "./components/TextBoxContainer.vue";
 
 const props = defineProps<{
   /** テキストボックス破棄時に呼び出されるコールバック */

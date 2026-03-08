@@ -9,6 +9,8 @@ defineProps<{
   isUnderline: boolean;
   /** 印刷時に枠線を表示するか */
   printBorder: boolean;
+  /** 現在の文字色 */
+  textColor: string;
 }>();
 
 defineEmits<{
@@ -18,7 +20,15 @@ defineEmits<{
   togglePrintBorder: [];
   adjustPrint: [];
   remove: [];
+  changeTextColor: [color: string];
 }>();
+
+const COLOR_OPTIONS = [
+  { value: "black", label: "黒" },
+  { value: "red", label: "赤" },
+  { value: "blue", label: "青" },
+  { value: "white", label: "白" },
+] as const;
 </script>
 
 <template>
@@ -76,6 +86,18 @@ defineEmits<{
         <line x1="9" y1="14" x2="13" y2="14" />
       </svg>
     </button>
+    <!-- 文字色 -->
+    <span class="toolbar-separator"></span>
+    <button
+      v-for="color in COLOR_OPTIONS"
+      :key="color.value"
+      :title="`文字色: ${color.label}`"
+      :class="['color-swatch', { active: textColor === color.value }]"
+      :style="{ backgroundColor: color.value }"
+      @click="$emit('changeTextColor', color.value)"
+      @mousedown.stop
+    ></button>
+    <span class="toolbar-separator"></span>
     <!-- テキストボックスを削除 -->
     <button title="テキストボックスを削除 (Ctrl+Shift+D)" @click="$emit('remove')" @mousedown.stop>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

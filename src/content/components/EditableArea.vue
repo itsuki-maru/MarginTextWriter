@@ -4,13 +4,15 @@
   枠線は画面上で常に表示し、印刷時はprintBorderに応じて切り替える
 -->
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
 defineProps<{
   fontSize: number;
   isUnderline: boolean;
   /** 印刷時に枠線を表示するか */
   printBorder: boolean;
+  /** 文字色 */
+  textColor: string;
 }>();
 
 const editableRef = ref<HTMLElement | null>(null);
@@ -19,8 +21,8 @@ const editableRef = ref<HTMLElement | null>(null);
 function adjustHeight(): void {
   const el = editableRef.value;
   if (!el) return;
-  el.style.height = 'auto';
-  el.style.height = el.scrollHeight + 'px';
+  el.style.height = "auto";
+  el.style.height = el.scrollHeight + "px";
 }
 
 /** 編集エリアにフォーカスを設定 */
@@ -48,6 +50,7 @@ defineExpose({ focus });
       fontSize: fontSize + 'px',
       textDecoration: isUnderline ? 'underline' : 'none',
       textUnderlineOffset: '5px',
+      color: textColor,
     }"
     @input="adjustHeight"
   ></div>

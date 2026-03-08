@@ -1,12 +1,12 @@
 /// <reference types="vite/client" />
 
-declare module '*.vue' {
-  import type { DefineComponent } from 'vue';
+declare module "*.vue" {
+  import type { DefineComponent } from "vue";
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
 
-declare module '*.css?inline' {
+declare module "*.css?inline" {
   const css: string;
   export default css;
 }
